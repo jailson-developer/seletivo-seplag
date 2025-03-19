@@ -6,7 +6,6 @@ import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -18,15 +17,12 @@ import java.util.Objects;
 @Embeddable
 public class FotoPessoaId implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = -340791570018009154L;
-
     @ColumnDefault("nextval('foto_pessoa_fp_id_seq')")
     @Column(name = "fp_id", nullable = false)
     private Long fpId;
 
     @Column(name = "pes_id")
-    private Long id;
+    private Long pesId;
 
     @Override
     public boolean equals(Object o) {
@@ -34,12 +30,12 @@ public class FotoPessoaId implements Serializable {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         FotoPessoaId entity = (FotoPessoaId) o;
         return Objects.equals(this.fpId, entity.fpId) &&
-                Objects.equals(this.id, entity.id);
+                Objects.equals(this.pesId, entity.pesId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fpId, id);
+        return Objects.hash(fpId, pesId);
     }
 
 }

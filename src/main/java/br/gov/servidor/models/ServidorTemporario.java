@@ -2,10 +2,10 @@ package br.gov.servidor.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

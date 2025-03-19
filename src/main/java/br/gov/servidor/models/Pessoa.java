@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -39,12 +38,16 @@ public class Pessoa extends PanacheEntityBase {
     @Column(name = "pes_pai", length = 200)
     private String pai;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "pessoa")
     private Set<FotoPessoa> fotos = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "pessoa")
     private Set<Lotacao> lotacaos = new LinkedHashSet<>();
 
-    @ManyToMany(mappedBy = "pessoas")
+    @OneToMany
+    @JoinTable(name = "pessoa_endereco",
+            joinColumns = @JoinColumn(name = "pes_id"),
+            inverseJoinColumns = @JoinColumn(name = "end_id")
+    )
     private Set<Endereco> enderecos = new LinkedHashSet<>();
 }

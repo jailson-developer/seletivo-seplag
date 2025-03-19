@@ -6,7 +6,6 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -19,6 +18,11 @@ public class FotoPessoa extends PanacheEntityBase {
     @EmbeddedId
     private FotoPessoaId id;
 
+    @MapsId("pesId")
+    @ManyToOne
+    @JoinColumn(name = "pes_id")
+    private Pessoa pessoa;
+
     @Column(name = "fp_data")
     private LocalDate data;
 
@@ -27,5 +31,4 @@ public class FotoPessoa extends PanacheEntityBase {
 
     @Column(name = "fp_hash", length = 50)
     private String hash;
-
 }

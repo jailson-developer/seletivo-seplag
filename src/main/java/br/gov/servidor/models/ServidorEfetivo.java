@@ -2,8 +2,8 @@ package br.gov.servidor.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
