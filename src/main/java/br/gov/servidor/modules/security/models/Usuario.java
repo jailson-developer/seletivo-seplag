@@ -1,6 +1,10 @@
-package br.gov.servidor.models;
+package br.gov.servidor.modules.security.models;
+
+import io.quarkus.elytron.security.common.BcryptUtil;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import jakarta.persistence.*;
+import jakarta.ws.rs.BadRequestException;
 import lombok.*;
 
 import java.util.LinkedHashSet;
@@ -13,7 +17,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario extends PanacheEntityBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_id_gen")
@@ -35,4 +39,12 @@ public class Usuario {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new LinkedHashSet<>();
+
+    public static Usuario findByLogin(String login, String password) {
+        Usuario usuario = Usuario.<Usuario>find("login = ?1", login).firstResultOptional().orElseThrow(() -> new BadRequestException("Usuário ou senha inválido"));
+        if (!BcryptUtil.matches(password, usuario.getPassword())) {
+            throw new BadRequestException("Usuário ou senha inválido");
+        }
+        return usuario;
+    }
 }

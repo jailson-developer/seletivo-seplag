@@ -1,5 +1,6 @@
-package br.gov.servidor.models;
+package br.gov.servidor.pessoa.models;
 
+import br.gov.servidor.core.models.Endereco;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.*;

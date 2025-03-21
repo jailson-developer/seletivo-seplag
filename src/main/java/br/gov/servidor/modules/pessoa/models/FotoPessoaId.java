@@ -1,4 +1,4 @@
-package br.gov.servidor.models;
+package br.gov.servidor.pessoa.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

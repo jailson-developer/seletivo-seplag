@@ -1,4 +1,4 @@
-package br.gov.servidor.models;
+package br.gov.servidor.pessoa.models;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
@@ -24,7 +24,7 @@ public class FotoPessoa extends PanacheEntityBase {
     private Pessoa pessoa;
 
     @Column(name = "fp_data")
-    private LocalDate data;
+    private LocalDate data = LocalDate.now();
 
     @Column(name = "fp_bucket", length = 50)
     private String bucket;

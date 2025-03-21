@@ -1,8 +1,7 @@
-package br.gov.servidor.models;
+package br.gov.servidor.pessoa.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 @AllArgsConstructor
 @NoArgsConstructor
