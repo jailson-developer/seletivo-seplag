@@ -1,7 +1,6 @@
 package br.gov.servidor.modules.servidor.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.ColumnDefault;
@@ -17,8 +16,9 @@ import java.util.Objects;
 @Embeddable
 public class FotoPessoaId implements Serializable {
 
-    @ColumnDefault("nextval('foto_pessoa_fp_id_seq')")
     @Column(name = "fp_id", nullable = false)
+    @SequenceGenerator(name = "foto_pessoa_fp_id_gen", sequenceName = "foto_pessoa_fp_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "foto_pessoa_fp_id_gen")
     private Long fpId;
 
     @Column(name = "pes_id")

@@ -6,17 +6,20 @@ import io.minio.http.Method;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.resource.spi.ConfigProperty;
 import lombok.SneakyThrows;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 @ApplicationScoped
 public class MinioService {
+
+    @ConfigProperty(name = "minio.expiracao")
+    Duration expiracao;
+
     @Inject
     MinioClient minioClient;
 
@@ -49,17 +52,14 @@ public class MinioService {
         }
     }
 
-//    @SneakyThrows
-//    public FotoResponseDTO buscarArquivo(String bucket, String hash) {
-//        String url = minioClient.getPresignedObjectUrl(
-//                GetPresignedObjectUrlArgs.builder()
-//                        .method(Method.GET)
-//                        .bucket(bucket)
-//                        .object(hash)
-//                        .expiry(5, TimeUnit.MINUTES)
-//                        .build());
-//        return FotoResponseDTO.builder()
-//                .url(url)
-//                .build();
-//    }
+    @SneakyThrows
+    public String retornarUrl(String bucket, String hash) {
+        return minioClient.getPresignedObjectUrl(
+                GetPresignedObjectUrlArgs.builder()
+                        .method(Method.GET)
+                        .bucket(bucket)
+                        .object(hash)
+                        .expiry((int) expiracao.toSeconds())
+                        .build());
+    }
 }

@@ -7,6 +7,7 @@ import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoRequestDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoResponseDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoResumoResponseDto;
 import br.gov.servidor.modules.servidor.mappers.ServidorEfetivoMapper;
+import br.gov.servidor.modules.servidor.models.FotoPessoa;
 import br.gov.servidor.modules.servidor.models.ServidorEfetivo;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -17,6 +18,9 @@ public class ServicorEfetivoService {
 
     @Inject
     ServidorEfetivoMapper mapper;
+
+    @Inject
+    ServidorService servidorService;
 
     @Transactional
     public void salvar(ServidorEfetivoRequestDto servidorEfetivoRequestDto) {
@@ -52,7 +56,11 @@ public class ServicorEfetivoService {
         if (entity == null) {
             throw new RegraNegocioException("Servidor não encontrado");
         }
-        return mapper.toResponseDto(entity);
+        ServidorEfetivoResponseDto responseDto = mapper.toResponseDto(entity);
+        for (FotoPessoa foto : entity.getFotos()) {
+            responseDto.getFotos().add(servidorService.buscarFoto(foto));
+        }
+        return responseDto;
     }
 
     public PagedResponse<ServidorEfetivoResumoResponseDto> consulta(PageRequest pageRequest) {

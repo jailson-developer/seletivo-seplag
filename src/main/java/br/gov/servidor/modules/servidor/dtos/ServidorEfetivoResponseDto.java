@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,4 +34,5 @@ public class ServidorEfetivoResponseDto implements Serializable {
     private Set<LotacaoResponseDto> lotacoes = new LinkedHashSet<>();
     private EnderecoResponseDto endereco;
     private String matricula;
+    private List<FotoResponseDto> fotos = new ArrayList<>();
 }
