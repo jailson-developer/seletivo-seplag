@@ -74,4 +74,11 @@ public class ExceptionMappers {
                 .entity(new ResponseExceptionDto(exception.getMessage(), exception.getMessage()))
                 .build();
     }
+
+    @ServerExceptionMapper(IllegalArgumentException.class)
+    public Response handleIllegalArgumentException(IllegalArgumentException exception) {
+        return Response.status(Status.BAD_REQUEST)
+                .entity(new ResponseExceptionDto(exception.getMessage(), exception.getMessage()))
+                .build();
+    }
 }

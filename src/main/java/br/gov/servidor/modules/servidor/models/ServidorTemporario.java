@@ -1,4 +1,4 @@
-package br.gov.servidor.pessoa.models;
+package br.gov.servidor.modules.servidor.models;
 
 import jakarta.persistence.*;
 import lombok.*;

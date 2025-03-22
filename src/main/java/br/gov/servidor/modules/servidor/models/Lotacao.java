@@ -1,4 +1,4 @@
-package br.gov.servidor.pessoa.models;
+package br.gov.servidor.modules.servidor.models;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,5 +32,9 @@ public class Lotacao {
 
     @Column(name = "lot_portaria", length = 100)
     private String portaria;
+
+    @JoinColumn(name = "unid_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Unidade unidade;
 
 }

@@ -1,4 +1,4 @@
-package br.gov.servidor.pessoa.models;
+package br.gov.servidor.modules.servidor.models;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;

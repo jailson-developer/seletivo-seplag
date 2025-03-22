@@ -2,6 +2,7 @@ package br.gov.servidor.core.models;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Builder
@@ -19,9 +20,11 @@ public class Cidade extends PanacheEntityBase {
     @Column(name = "cid_id", nullable = false)
     private Long id;
 
+    @Size(max = 200)
     @Column(name = "cid_nome", length = 200)
     private String nome;
 
+    @Size(max = 2)
     @Column(name = "cid_uf", length = 2)
     private String uf;
 

@@ -1,8 +1,10 @@
-package br.gov.servidor.pessoa.models;
+package br.gov.servidor.modules.servidor.models;
 
 import br.gov.servidor.core.models.Endereco;
+import br.gov.servidor.modules.servidor.enums.ESexo;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -24,31 +26,35 @@ public class Pessoa extends PanacheEntityBase {
     @Column(name = "pes_id", nullable = false)
     private Long id;
 
+    @Size(max = 200)
     @Column(name = "pes_nome", length = 200)
     private String nome;
 
     @Column(name = "pes_data_nascimento")
     private LocalDate dataNascimento;
 
-    @Column(name = "pes_sexo", length = 9)
-    private String sexo;
+    @Column(name = "pes_sexo")
+    @Enumerated(EnumType.STRING)
+    private ESexo sexo;
 
+    @Size(max = 200)
     @Column(name = "pes_mae", length = 200)
     private String mae;
 
+    @Size(max = 200)
     @Column(name = "pes_pai", length = 200)
     private String pai;
 
-    @OneToMany(mappedBy = "pessoa")
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.PERSIST)
     private Set<FotoPessoa> fotos = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "pessoa")
-    private Set<Lotacao> lotacaos = new LinkedHashSet<>();
+    private Set<Lotacao> lotacoes = new LinkedHashSet<>();
 
-    @OneToMany
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     @JoinTable(name = "pessoa_endereco",
             joinColumns = @JoinColumn(name = "pes_id"),
             inverseJoinColumns = @JoinColumn(name = "end_id")
     )
-    private Set<Endereco> enderecos = new LinkedHashSet<>();
+    private Endereco endereco;
 }
