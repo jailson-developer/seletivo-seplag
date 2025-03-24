@@ -31,7 +31,7 @@ public class ServidorEfetivoResponseDto implements Serializable {
     private String mae;
     @Size(max = 200)
     private String pai;
-    private Set<LotacaoResponseDto> lotacoes = new LinkedHashSet<>();
+ //   private Set<LotacaoResponseDto> lotacoes = new LinkedHashSet<>();
     private EnderecoResponseDto endereco;
     private String matricula;
     private List<FotoResponseDto> fotos = new ArrayList<>();

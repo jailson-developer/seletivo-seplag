@@ -1,5 +1,6 @@
-package br.gov.servidor.core.models;
+package br.gov.servidor.core.dtos;
 
+import br.gov.servidor.core.models.Endereco;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;

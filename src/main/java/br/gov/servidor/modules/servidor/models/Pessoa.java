@@ -6,6 +6,8 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
@@ -48,6 +50,7 @@ public class Pessoa extends PanacheEntityBase {
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.PERSIST)
     private Set<FotoPessoa> fotos = new LinkedHashSet<>();
 
+    @SQLRestriction("lot_data_remocao is null and lot_data_lotacao is not null")
     @OneToMany(mappedBy = "pessoa")
     private Set<Lotacao> lotacoes = new LinkedHashSet<>();
 

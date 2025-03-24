@@ -1,11 +1,12 @@
 package br.gov.servidor.modules.servidor.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import br.gov.servidor.core.models.Endereco;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -15,6 +16,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Entity
 @Table(name = "unidade")
 public class Unidade {
+
     @Id
     @ColumnDefault("nextval('unidade_unid_id_seq')")
     @Column(name = "unid_id", nullable = false)
@@ -25,5 +27,11 @@ public class Unidade {
 
     @Column(name = "unid_sigla", length = 20)
     private String sigla;
+
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    @JoinTable(name = "unidade_endereco",
+            joinColumns = @JoinColumn(name = "unid_id"),
+            inverseJoinColumns = @JoinColumn(name = "end_id"))
+    private Endereco endereco;
 
 }

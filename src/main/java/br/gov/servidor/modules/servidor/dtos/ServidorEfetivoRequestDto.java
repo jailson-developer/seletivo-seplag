@@ -1,6 +1,6 @@
 package br.gov.servidor.modules.servidor.dtos;
 
-import br.gov.servidor.core.models.EnderecoRequestDto;
+import br.gov.servidor.core.dtos.EnderecoRequestDto;
 import br.gov.servidor.modules.servidor.enums.ESexo;
 import br.gov.servidor.modules.servidor.models.ServidorEfetivo;
 import jakarta.validation.constraints.NotBlank;

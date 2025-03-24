@@ -1,4 +1,4 @@
-package br.gov.servidor.core;
+package br.gov.servidor.core.config;
 
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;

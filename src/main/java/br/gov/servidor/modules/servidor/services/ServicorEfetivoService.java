@@ -6,9 +6,11 @@ import br.gov.servidor.core.pagination.PagedResponse;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoRequestDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoResponseDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoResumoResponseDto;
+import br.gov.servidor.modules.servidor.dtos.ServidorEnderecoFuncionalDto;
 import br.gov.servidor.modules.servidor.mappers.ServidorEfetivoMapper;
 import br.gov.servidor.modules.servidor.models.FotoPessoa;
 import br.gov.servidor.modules.servidor.models.ServidorEfetivo;
+import br.gov.servidor.modules.servidor.models.Unidade;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -63,8 +65,8 @@ public class ServicorEfetivoService {
         return responseDto;
     }
 
-    public PagedResponse<ServidorEfetivoResumoResponseDto> consulta(PageRequest pageRequest) {
-        return new PagedResponse<>(ServidorEfetivo.findAll(), pageRequest, mapper::toResumoResponseDto);
+    public PagedResponse<ServidorEfetivoResumoResponseDto> servidoresPorUnidade(Long unidadeId, PageRequest pageRequest) {
+        return new PagedResponse<>(ServidorEfetivo.findByUnidade(unidadeId), pageRequest, mapper::toResumoResponseDto);
     }
 
 }

@@ -1,7 +1,7 @@
 package br.gov.servidor.core.mappers;
 
 import br.gov.servidor.core.models.Endereco;
-import br.gov.servidor.core.models.EnderecoRequestDto;
+import br.gov.servidor.core.dtos.EnderecoRequestDto;
 import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.WARN, componentModel = MappingConstants.ComponentModel.JAKARTA_CDI, uses = {CidadeMapper.class})

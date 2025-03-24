@@ -2,14 +2,21 @@ package br.gov.servidor.modules.servidor.services;
 
 
 import br.gov.servidor.core.exceptions.RegraNegocioException;
+import br.gov.servidor.core.models.Endereco;
+import br.gov.servidor.core.pagination.PageRequest;
+import br.gov.servidor.core.pagination.PagedResponse;
 import br.gov.servidor.core.s3.MinioSendFile;
 import br.gov.servidor.core.s3.MinioService;
+import br.gov.servidor.core.utils.Func;
 import br.gov.servidor.modules.servidor.dtos.FotoResponseDto;
+import br.gov.servidor.modules.servidor.dtos.ServidorEnderecoFuncionalDto;
 import br.gov.servidor.modules.servidor.models.FotoPessoa;
 import br.gov.servidor.modules.servidor.models.Pessoa;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
@@ -25,6 +32,9 @@ import java.util.Optional;
 
 @ApplicationScoped
 public class ServidorService {
+
+    @Inject
+    EntityManager em;
 
     @Inject
     MinioService minioService;
@@ -86,4 +96,14 @@ public class ServidorService {
                 .build();
     }
 
+    public PagedResponse<ServidorEnderecoFuncionalDto> enderecoFuncional(String nomeServidor, PageRequest pageRequest) {
+        TypedQuery<Endereco> nomeServidor1 = em.createQuery("""
+                select e from Lotacao l join Pessoa p on p.id = l.pessoa.id join
+                Unidade u on u.id = l.unidade.id join Endereco e on e.id = u.endereco.id
+                where l.dataRemocao is null and l.dataLotacao is not null
+                and upper(unaccent(p.nome)) like :nomeServidor
+                """, Endereco.class).setParameter("nomeServidor", Func.formatarQueryContem(nomeServidor));
+        List<Endereco> resultList = nomeServidor1.getResultList();
+        return null;
+    }
 }

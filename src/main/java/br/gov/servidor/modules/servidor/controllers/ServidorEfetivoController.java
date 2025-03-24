@@ -6,6 +6,7 @@ import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoRequestDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoResponseDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoResumoResponseDto;
 import br.gov.servidor.modules.servidor.services.ServicorEfetivoService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -29,6 +30,7 @@ public class ServidorEfetivoController {
         @APIResponse(responseCode = "201", description = "Servidor criado com sucesso"),
         @APIResponse(responseCode = "400", description = "Erro na validação de dados")
     })
+    @RolesAllowed("manter_servidor")
     public Response salvar(ServidorEfetivoRequestDto servidorEfetivoRequestDto) {
         servidorEfetivoService.salvar(servidorEfetivoRequestDto);
         return Response.status(Response.Status.CREATED).build();
@@ -36,6 +38,7 @@ public class ServidorEfetivoController {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed("manter_servidor")
     @Operation(summary = "Atualizar dados de um servidor", description = "Atualiza as informações de um servidor já cadastrado.")
     @APIResponses(value = {
         @APIResponse(responseCode = "200", description = "Servidor atualizado com sucesso"),
@@ -54,6 +57,7 @@ public class ServidorEfetivoController {
         @APIResponse(responseCode = "204", description = "Servidor excluído com sucesso"),
         @APIResponse(responseCode = "404", description = "Servidor não encontrado")
     })
+    @RolesAllowed("manter_servidor")
     public Response excluir(@PathParam("id") Long id) {
         servidorEfetivoService.excluir(id);
         return Response.status(Response.Status.NO_CONTENT).build();
@@ -66,19 +70,18 @@ public class ServidorEfetivoController {
         @APIResponse(responseCode = "200", description = "Servidor encontrado e retornado"),
         @APIResponse(responseCode = "404", description = "Servidor não encontrado")
     })
+    @RolesAllowed({"leitura_servidor", "manter_servidor"})
     public Response consultaCompleta(@PathParam("id") Long id) {
         ServidorEfetivoResponseDto responseDto = servidorEfetivoService.consultaCompleta(id);
         return Response.ok(responseDto).build();
     }
 
     @GET
-    @Operation(summary = "Consultar servidores", description = "Consulta servidores efetivos com paginação.")
-    @APIResponses(value = {
-        @APIResponse(responseCode = "200", description = "Servidores retornados com sucesso"),
-        @APIResponse(responseCode = "400", description = "Erro nos parâmetros de paginação")
-    })
-    public Response consulta(@BeanParam PageRequest pageRequest) {
-        PagedResponse<ServidorEfetivoResumoResponseDto> response = servidorEfetivoService.consulta(pageRequest);
-        return Response.ok(response).build();
+    @Path("/por-unidade/{unidadeId}")
+    @Operation(summary = "Buscar Servidores Efetivos da Unidade", description = "Busca os servidores lotados na Unidade informada")
+    @RolesAllowed({"leitura_servidor", "manter_servidor"})
+    public PagedResponse<ServidorEfetivoResumoResponseDto> servidoresPorUnidade(@PathParam("unidadeId") Long unidadeId, @BeanParam PageRequest pageRequest) {
+        return servidorEfetivoService.servidoresPorUnidade(unidadeId, pageRequest);
     }
+
 }
