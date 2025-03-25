@@ -25,22 +25,24 @@ public class ServicorEfetivoService {
     ServidorService servidorService;
 
     @Transactional
-    public void salvar(ServidorEfetivoRequestDto servidorEfetivoRequestDto) {
+    public ServidorEfetivoResponseDto salvar(ServidorEfetivoRequestDto servidorEfetivoRequestDto) {
         ServidorEfetivo.findByMatricula(servidorEfetivoRequestDto.getMatricula()).ifPresent((v) -> {
             throw new RegraNegocioException("Servidor já cadastrado");
         });
         ServidorEfetivo entity = mapper.toEntity(servidorEfetivoRequestDto);
         entity.persist();
+        return mapper.toResponseDto(entity);
     }
 
     @Transactional
-    public void atualizar(Long id, ServidorEfetivoRequestDto servidorEfetivoRequestDto) {
+    public ServidorEfetivoResponseDto atualizar(Long id, ServidorEfetivoRequestDto servidorEfetivoRequestDto) {
         ServidorEfetivo entity = ServidorEfetivo.findById(id);
         if (entity == null) {
             throw new RegraNegocioException("Servidor não encontrado");
         }
         mapper.partialUpdate(servidorEfetivoRequestDto, entity);
         entity.persist();
+        return mapper.toResponseDto(entity);
     }
 
     @Transactional

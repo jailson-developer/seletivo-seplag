@@ -3,6 +3,7 @@ package br.gov.servidor.modules.servidor.dtos;
 import br.gov.servidor.core.dtos.EnderecoRequestDto;
 import br.gov.servidor.modules.servidor.enums.ESexo;
 import br.gov.servidor.modules.servidor.models.ServidorEfetivo;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -43,5 +44,6 @@ public class ServidorEfetivoRequestDto implements Serializable {
     @Size(max = 20, message = "A matrícula não pode ter mais de 20 caracteres")
     private String matricula;
 
+    @Valid
     private EnderecoRequestDto endereco;
 }

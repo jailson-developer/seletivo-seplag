@@ -16,24 +16,23 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
 
-@Path("/v1/servidores")
+@Path("/v1/servidores-efetivos")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ServidorEfetivoController {
 
     @Inject
-    ServicorEfetivoService servidorEfetivoService;
+    ServicorEfetivoService service;
 
     @POST
-    @Operation(summary = "Salvar um novo servidor", description = "Realiza o cadastro de um novo servidor efetivo.")
+    @Operation(summary = "Salva um novo servidor", description = "Realiza o cadastro de um novo servidor efetivo.")
     @APIResponses(value = {
         @APIResponse(responseCode = "201", description = "Servidor criado com sucesso"),
         @APIResponse(responseCode = "400", description = "Erro na validação de dados")
     })
     @RolesAllowed("manter_servidor")
     public Response salvar(ServidorEfetivoRequestDto servidorEfetivoRequestDto) {
-        servidorEfetivoService.salvar(servidorEfetivoRequestDto);
-        return Response.status(Response.Status.CREATED).build();
+        return Response.status(Response.Status.CREATED).entity(service.salvar(servidorEfetivoRequestDto)).build();
     }
 
     @PUT
@@ -46,8 +45,7 @@ public class ServidorEfetivoController {
         @APIResponse(responseCode = "400", description = "Erro na validação de dados")
     })
     public Response atualizar(@PathParam("id") Long id, ServidorEfetivoRequestDto servidorEfetivoRequestDto) {
-        servidorEfetivoService.atualizar(id, servidorEfetivoRequestDto);
-        return Response.ok().build();
+        return Response.ok().entity(service.atualizar(id, servidorEfetivoRequestDto)).build();
     }
 
     @DELETE
@@ -59,7 +57,7 @@ public class ServidorEfetivoController {
     })
     @RolesAllowed("manter_servidor")
     public Response excluir(@PathParam("id") Long id) {
-        servidorEfetivoService.excluir(id);
+        service.excluir(id);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 
@@ -72,7 +70,7 @@ public class ServidorEfetivoController {
     })
     @RolesAllowed({"leitura_servidor", "manter_servidor"})
     public Response consultaCompleta(@PathParam("id") Long id) {
-        ServidorEfetivoResponseDto responseDto = servidorEfetivoService.consultaCompleta(id);
+        ServidorEfetivoResponseDto responseDto = service.consultaCompleta(id);
         return Response.ok(responseDto).build();
     }
 
@@ -81,7 +79,7 @@ public class ServidorEfetivoController {
     @Operation(summary = "Buscar Servidores Efetivos da Unidade", description = "Busca os servidores lotados na Unidade informada")
     @RolesAllowed({"leitura_servidor", "manter_servidor"})
     public PagedResponse<ServidorEfetivoResumoResponseDto> servidoresPorUnidade(@PathParam("unidadeId") Long unidadeId, @BeanParam PageRequest pageRequest) {
-        return servidorEfetivoService.servidoresPorUnidade(unidadeId, pageRequest);
+        return service.servidoresPorUnidade(unidadeId, pageRequest);
     }
 
 }

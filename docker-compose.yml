@@ -26,7 +26,9 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-root}
       POSTGRES_DB: servidor_database
     ports:
-      - '5432:5432'
+      - '5434:5432'
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app_network
     restart: unless-stopped

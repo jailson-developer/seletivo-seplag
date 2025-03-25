@@ -1,0 +1,1 @@
+CREATE DATABASE controle_servidor;
