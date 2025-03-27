@@ -15,11 +15,13 @@ import jakarta.inject.Inject;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 
 @Path("/v1/servidores-efetivos")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Tag(name = "Servidores Efetivos", description = "Endpoint(s) relacionado(s) aos servidores efetivos")
 public class ServidorEfetivoController {
 
     @Inject

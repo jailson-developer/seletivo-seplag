@@ -5,6 +5,8 @@ import io.quarkus.panache.common.Sort;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -27,5 +29,9 @@ public class ServidorEfetivo extends Pessoa {
                 from ServidorEfetivo se join Lotacao lo on lo.pessoa.id = se.id where lo.unidade.id = ?1
                                 and lo.dataRemocao is null
                 """, Sort.ascending("nome"), unidadeId);
+    }
+
+    public Integer getIdade() {
+        return getDataNascimento() == null ? null : Period.between(getDataNascimento(), LocalDate.now()).getYears();
     }
 }

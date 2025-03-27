@@ -7,6 +7,7 @@ import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoResponseDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoResumoResponseDto;
 import br.gov.servidor.modules.servidor.models.Lotacao;
 import br.gov.servidor.modules.servidor.models.ServidorEfetivo;
+import br.gov.servidor.modules.servidor.models.Unidade;
 import org.mapstruct.*;
 
 import java.time.LocalDate;
@@ -25,7 +26,6 @@ public interface ServidorEfetivoMapper {
 
     ServidorEfetivoResponseDto toResponseDto(ServidorEfetivo servidorEfetivo);
 
-    @Mapping(target = "idade", expression = "java(servidorEfetivo.getDataNascimento()==null?null:Period.between(servidorEfetivo.getDataNascimento(), LocalDate.now()).getYears())")
     @Mapping(target = "lotacao", source = "lotacoes")
     @Mapping(target = "fotos", ignore = true)
     ServidorEfetivoResumoResponseDto toResumoResponseDto(ServidorEfetivo servidorEfetivo);
@@ -37,6 +37,10 @@ public interface ServidorEfetivoMapper {
                 .portaria(value.getPortaria())
                 .unidade(value.getUnidade().getNome())
                 .build()).orElse(null);
+    }
+
+    default String toUnidade(Unidade unidade) {
+        return unidade.getNome();
     }
 
     @InheritInverseConfiguration

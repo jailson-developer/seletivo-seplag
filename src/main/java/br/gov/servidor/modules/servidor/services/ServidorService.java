@@ -52,6 +52,7 @@ public class ServidorService {
             ".gif",
             ".bmp",
             ".tiff",
+            ".avif",
             ".webp",
             ".svg");
 

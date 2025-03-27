@@ -51,11 +51,7 @@ public class ServicorEfetivoService {
 
     @Transactional
     public void excluir(Long id) {
-        ServidorEfetivo entity = ServidorEfetivo.findById(id);
-        if (entity == null) {
-            throw new RegraNegocioException("Servidor não encontrado");
-        }
-        entity.delete();
+        ServidorEfetivo.deleteById(id);
     }
 
 
@@ -72,7 +68,7 @@ public class ServicorEfetivoService {
     }
 
     public PagedResponse<ServidorEfetivoResumoResponseDto> servidoresPorUnidade(Long unidadeId, PageRequest pageRequest) {
-        return new PagedResponse<>(ServidorEfetivo.findByUnidade(unidadeId), pageRequest,(entity)->{
+        return new PagedResponse<>(ServidorEfetivo.findByUnidade(unidadeId), pageRequest, (entity) -> {
             ServidorEfetivoResumoResponseDto resumoResponseDto = mapper.toResumoResponseDto(entity);
             for (FotoPessoa foto : entity.getFotos()) {
                 resumoResponseDto.getFotos().add(servidorService.buscarFoto(foto));

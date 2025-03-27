@@ -20,7 +20,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ServidorEfetivoResponseDto implements Serializable {
+public class ServidorTemporarioResponseDto implements Serializable {
 
     private Long id;
     @Size(max = 200)
@@ -33,6 +33,5 @@ public class ServidorEfetivoResponseDto implements Serializable {
     private String pai;
     private Set<LotacaoResponseDto> lotacoes = new LinkedHashSet<>();
     private EnderecoResponseDto endereco;
-    private String matricula;
     private List<FotoResponseDto> fotos = new ArrayList<>();
 }
