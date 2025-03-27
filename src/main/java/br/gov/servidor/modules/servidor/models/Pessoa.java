@@ -54,10 +54,10 @@ public class Pessoa extends PanacheEntityBase {
     @OneToMany(mappedBy = "pessoa")
     private Set<Lotacao> lotacoes = new LinkedHashSet<>();
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(name = "pessoa_endereco",
             joinColumns = @JoinColumn(name = "pes_id"),
             inverseJoinColumns = @JoinColumn(name = "end_id")
     )
-    private Endereco endereco;
+    private Set<Endereco> enderecos = new LinkedHashSet<>();
 }

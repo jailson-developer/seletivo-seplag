@@ -17,4 +17,6 @@ public class LotacaoResponseDto implements Serializable {
     private LocalDate dataLotacao;
     private String portaria;
     private String unidade;
+    private Long id;
+
 }
