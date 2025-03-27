@@ -17,12 +17,12 @@ public class PagedResponse<T> {
     private int page;
     private List<T> content;
 
-    public <J, D> PagedResponse(List<T> content, long totalElements, int totalPages, int size, int number, Function<J, D> mapper) {
+    public <J, D> PagedResponse(List<T> content, long totalElements, int totalPages, int size, int page, Function<J, D> mapper) {
         this.content = content;
         this.totalElements = totalElements;
         this.totalPages = totalPages;
         this.size = size;
-        this.page = number;
+        this.page = page;
     }
 
     public <A> PagedResponse(PanacheQuery<A> query, PageRequest pageRequest, Function<A, T> mapper) {

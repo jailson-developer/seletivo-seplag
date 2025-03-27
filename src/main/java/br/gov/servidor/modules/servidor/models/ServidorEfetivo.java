@@ -1,6 +1,7 @@
 package br.gov.servidor.modules.servidor.models;
 
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import io.quarkus.panache.common.Sort;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +26,6 @@ public class ServidorEfetivo extends Pessoa {
         return find("""
                 from ServidorEfetivo se join Lotacao lo on lo.pessoa.id = se.id where lo.unidade.id = ?1
                                 and lo.dataRemocao is null
-                """, unidadeId);
+                """, Sort.ascending("nome"), unidadeId);
     }
 }

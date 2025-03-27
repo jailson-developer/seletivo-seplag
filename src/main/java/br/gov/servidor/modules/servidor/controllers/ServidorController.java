@@ -33,13 +33,4 @@ public class ServidorController {
         service.uploadFotos(pessoaId, fotos);
         return Response.created(null).build();
     }
-
-
-    @GET
-    @Path("/endereco-funcional/{nomeServidor}")
-    @Operation(summary = "Buscar Servidores Efetivos da Unidade", description = "Busca os servidores lotados na Unidade informada")
-    @RolesAllowed({"leitura_servidor", "manter_servidor"})
-    public PagedResponse<ServidorEnderecoFuncionalDto> enderecoFuncional(@PathParam("nomeServidor") String nomeServidor, @BeanParam PageRequest pageRequest) {
-        return service.enderecoFuncional(nomeServidor, pageRequest);
-    }
 }

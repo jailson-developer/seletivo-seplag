@@ -1,5 +1,6 @@
 package br.gov.servidor.core.mappers;
 
+import br.gov.servidor.core.dtos.EnderecoResponseDto;
 import br.gov.servidor.core.models.Endereco;
 import br.gov.servidor.core.dtos.EnderecoRequestDto;
 import org.mapstruct.*;
@@ -10,8 +11,7 @@ public interface EnderecoMapper {
     @Mapping(source = "cidadeId", target = "cidade", qualifiedByName = "toCidade")
     Endereco toEntity(EnderecoRequestDto enderecoRequestDto);
 
-    @Mapping(source = "cidade.id", target = "cidadeId")
-    EnderecoRequestDto toDto(Endereco endereco);
+    EnderecoResponseDto toDto(Endereco endereco);
 
     @Mapping(target = "id", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

@@ -9,5 +9,5 @@ import lombok.*;
 @NoArgsConstructor
 public class FotoResponseDto {
     private String url;
-    private String name;
+    private String nome;
 }

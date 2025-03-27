@@ -5,6 +5,7 @@ import br.gov.servidor.core.pagination.PagedResponse;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoRequestDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoResponseDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoResumoResponseDto;
+import br.gov.servidor.modules.servidor.dtos.ServidorEnderecoFuncionalDto;
 import br.gov.servidor.modules.servidor.services.ServicorEfetivoService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.*;
@@ -80,6 +81,15 @@ public class ServidorEfetivoController {
     @RolesAllowed({"leitura_servidor", "manter_servidor"})
     public PagedResponse<ServidorEfetivoResumoResponseDto> servidoresPorUnidade(@PathParam("unidadeId") Long unidadeId, @BeanParam PageRequest pageRequest) {
         return service.servidoresPorUnidade(unidadeId, pageRequest);
+    }
+
+
+    @GET
+    @Path("/endereco-funcional/{nomeServidor}")
+    @Operation(summary = "Buscar Servidores Efetivos da Unidade", description = "Busca os servidores lotados na Unidade informada")
+    @RolesAllowed({"leitura_servidor", "manter_servidor"})
+    public PagedResponse<ServidorEnderecoFuncionalDto> enderecoFuncional(@PathParam("nomeServidor") String nomeServidor, @BeanParam PageRequest pageRequest) {
+        return service.enderecoFuncional(nomeServidor, pageRequest);
     }
 
 }

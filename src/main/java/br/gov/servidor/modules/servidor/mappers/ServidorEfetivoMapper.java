@@ -27,6 +27,7 @@ public interface ServidorEfetivoMapper {
 
     @Mapping(target = "idade", expression = "java(servidorEfetivo.getDataNascimento()==null?null:Period.between(servidorEfetivo.getDataNascimento(), LocalDate.now()).getYears())")
     @Mapping(target = "lotacao", source = "lotacoes")
+    @Mapping(target = "fotos", ignore = true)
     ServidorEfetivoResumoResponseDto toResumoResponseDto(ServidorEfetivo servidorEfetivo);
 
     default LotacaoResponseDto lotacoesToLocacaoResponseDto(Set<Lotacao> lotacoes) {
