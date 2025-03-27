@@ -42,15 +42,15 @@ services:
     networks:
       - app_network
     environment:
-      - JDBC_URL=${JDBC_URL:jdbc:postgresql://postgres:5432/servidor_database}
-      - JDBC_USERNAME=${JDBC_USERNAME:postgres}
-      - JDBC_PASSWORD=${JDBC_PASSWORD:root}
-      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY:minioadmin}
-      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY:minioadmin}
-      - MINIO_HOST=${MINIO_HOST:http://127.0.0.1}
-      - MINIO_PORT=${MINIO_PORT:9000}
-      - MINIO_EXPIRACAO=${MINIO_EXPIRACAO:5M}
-      - CORS_ORIGINS=${CORS_ORIGINS:http://localhost:8080}
+      - JDBC_URL=jdbc:postgresql://postgres:5432/servidor_database
+      - JDBC_USERNAME=postgres
+      - JDBC_PASSWORD=root
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_HOST=http://127.0.0.1
+      - MINIO_PORT=9000
+      - MINIO_EXPIRACAO=5M
+      - CORS_ORIGINS=http://localhost:8080
     restart: unless-stopped
 
 networks:
