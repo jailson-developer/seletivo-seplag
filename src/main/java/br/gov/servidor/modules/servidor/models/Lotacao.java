@@ -1,7 +1,6 @@
 package br.gov.servidor.modules.servidor.models;
 
-import br.gov.servidor.core.pagination.PageRequest;
-import br.gov.servidor.core.utils.Func;
+import br.gov.servidor.core.utils.QueryUtils;
 import br.gov.servidor.modules.servidor.dtos.LotacaoFiltroParams;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
@@ -9,7 +8,6 @@ import io.quarkus.panache.common.Parameters;
 import jakarta.persistence.*;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 
@@ -49,7 +47,7 @@ public class Lotacao extends PanacheEntityBase {
         Parameters parameters = new Parameters();
         StringBuilder query = new StringBuilder("1=1");
         if (StringUtils.isNotBlank(filtro.getPortaria())) {
-            parameters.and("portaria", Func.formatarQueryContem(filtro.getPortaria()));
+            parameters.and("portaria", QueryUtils.formatarQueryContem(filtro.getPortaria()));
             query.append(" AND lower(portaria) LIKE :portaria");
         }
         if (filtro.getDataLotacao() != null) {

@@ -1,17 +1,13 @@
 package br.gov.servidor.modules.servidor.models;
 
 import br.gov.servidor.core.models.Endereco;
-import br.gov.servidor.core.utils.Func;
+import br.gov.servidor.core.utils.QueryUtils;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Parameters;
 import jakarta.persistence.*;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.annotations.ColumnDefault;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -44,11 +40,11 @@ public class Unidade extends PanacheEntityBase {
         Parameters parameters = new Parameters();
         StringBuilder query = new StringBuilder("1=1");
         if (StringUtils.isNotBlank(nome)) {
-            parameters.and("nome", Func.formatarQueryContem(nome));
+            parameters.and("nome", QueryUtils.formatarQueryContem(nome));
             query.append(" AND upper(unaccent(nome)) LIKE :nome");
         }
         if (StringUtils.isNotBlank(sigla)) {
-            parameters.and("sigla", Func.formatarQueryContem(sigla));
+            parameters.and("sigla", QueryUtils.formatarQueryContem(sigla));
             query.append(" AND upper(unaccent(sigla)) LIKE :sigla");
         }
         return find(query.toString(), parameters);

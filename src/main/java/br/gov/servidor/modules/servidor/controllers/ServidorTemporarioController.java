@@ -1,9 +1,12 @@
 package br.gov.servidor.modules.servidor.controllers;
 
+import br.gov.servidor.core.pagination.PageRequest;
+import br.gov.servidor.core.pagination.PagedResponse;
 import br.gov.servidor.modules.servidor.dtos.*;
 import br.gov.servidor.modules.servidor.services.ServidorTemporarioService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -35,6 +38,7 @@ public class ServidorTemporarioController {
         return Response.status(Response.Status.CREATED).entity(service.salvar(temporarioRequestDto)).build();
     }
 
+
     @PUT
     @Path("/{id}")
     @RolesAllowed("manter_servidor")
@@ -47,6 +51,7 @@ public class ServidorTemporarioController {
     public Response atualizar(@PathParam("id") Long id, ServidorTemporarioRequestDto servidorTemporarioRequestDto) {
         return Response.ok().entity(service.atualizar(id, servidorTemporarioRequestDto)).build();
     }
+
 
     @DELETE
     @Path("/{id}")
@@ -61,6 +66,7 @@ public class ServidorTemporarioController {
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 
+
     @GET
     @Path("/{id}")
     @Operation(summary = "Consultar um servidor", description = "Consulta todos os dados completos de um servidor pelo ID.")
@@ -72,5 +78,18 @@ public class ServidorTemporarioController {
     public Response consultaCompleta(@PathParam("id") Long id) {
         ServidorTemporarioResponseDto responseDto = service.consultaCompleta(id);
         return Response.ok(responseDto).build();
+    }
+
+
+    @GET
+    @Path("/")
+    @Operation(summary = "Consultar de servidores", description = "Consulta resumida de servidores")
+    @APIResponses(value = {
+            @APIResponse(responseCode = "200", description = "Servidor encontrado e retornado"),
+            @APIResponse(responseCode = "404", description = "Servidor não encontrado")
+    })
+    @RolesAllowed({"leitura_servidor", "manter_servidor"})
+    public PagedResponse<ServidorTemporarioResumoResponseDto> consultaResumida(@BeanParam ServidorTemporarioFiltroParams params, @BeanParam PageRequest pageRequest) {
+        return service.consultaResumida(params, pageRequest);
     }
 }

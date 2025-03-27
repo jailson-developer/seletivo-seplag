@@ -3,7 +3,7 @@ package br.gov.servidor.modules.servidor.services;
 import br.gov.servidor.core.exceptions.RegraNegocioException;
 import br.gov.servidor.core.pagination.PageRequest;
 import br.gov.servidor.core.pagination.PagedResponse;
-import br.gov.servidor.core.utils.Func;
+import br.gov.servidor.core.utils.QueryUtils;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoRequestDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoResponseDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoResumoResponseDto;
@@ -12,7 +12,6 @@ import br.gov.servidor.modules.servidor.mappers.ServidorEfetivoMapper;
 import br.gov.servidor.modules.servidor.models.FotoPessoa;
 import br.gov.servidor.modules.servidor.models.Lotacao;
 import br.gov.servidor.modules.servidor.models.ServidorEfetivo;
-import br.gov.servidor.modules.servidor.models.Unidade;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -83,7 +82,7 @@ public class ServicorEfetivoService {
                         Unidade u on u = l.unidade join Endereco e on e = u.endereco
                         where l.dataRemocao is null and l.dataLotacao is not null
                         and upper(unaccent(p.nome)) like :nomeServidor order by p.nome
-                        """, Parameters.with("nomeServidor", Func.formatarQueryContem(nomeServidor)))
+                        """, Parameters.with("nomeServidor", QueryUtils.formatarQueryContem(nomeServidor)))
                 .project(ServidorEnderecoFuncionalDto.class);
         return new PagedResponse<>(qry, pageRequest, (entity) -> entity);
     }

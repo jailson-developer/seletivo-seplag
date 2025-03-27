@@ -2,7 +2,7 @@ package br.gov.servidor.core.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class Func {
+public class QueryUtils {
 
     public static String formatarQueryContem(String qry) {
         if (StringUtils.isEmpty(qry))

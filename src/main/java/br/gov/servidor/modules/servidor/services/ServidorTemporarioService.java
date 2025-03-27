@@ -3,16 +3,10 @@ package br.gov.servidor.modules.servidor.services;
 import br.gov.servidor.core.exceptions.RegraNegocioException;
 import br.gov.servidor.core.pagination.PageRequest;
 import br.gov.servidor.core.pagination.PagedResponse;
-import br.gov.servidor.core.utils.Func;
 import br.gov.servidor.modules.servidor.dtos.*;
 import br.gov.servidor.modules.servidor.mappers.ServidorTemporarioMapper;
-import br.gov.servidor.modules.servidor.mappers.ServidorTemporarioMapper;
 import br.gov.servidor.modules.servidor.models.FotoPessoa;
-import br.gov.servidor.modules.servidor.models.Lotacao;
 import br.gov.servidor.modules.servidor.models.ServidorTemporario;
-import br.gov.servidor.modules.servidor.models.ServidorTemporario;
-import io.quarkus.hibernate.orm.panache.PanacheQuery;
-import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -62,4 +56,7 @@ public class ServidorTemporarioService {
         return responseDto;
     }
 
+    public PagedResponse<ServidorTemporarioResumoResponseDto> consultaResumida(ServidorTemporarioFiltroParams params, PageRequest pageRequest) {
+        return new PagedResponse<ServidorTemporarioResumoResponseDto>(ServidorTemporario.findByParams(params), pageRequest, mapper::toResumoResponseDto);
+    }
 }
