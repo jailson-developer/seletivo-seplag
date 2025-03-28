@@ -1,0 +1,1 @@
+CREATE ALIAS if not exists unaccent AS 'String unaccent(String s) { return s; }';

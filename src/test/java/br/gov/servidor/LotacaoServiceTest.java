@@ -1,100 +1,132 @@
 package br.gov.servidor;
 
+import br.gov.servidor.core.pagination.PageRequest;
+import br.gov.servidor.core.pagination.PagedResponse;
+import br.gov.servidor.modules.servidor.dtos.LotacaoFiltroParams;
 import br.gov.servidor.modules.servidor.dtos.LotacaoRequestDto;
 import br.gov.servidor.modules.servidor.dtos.LotacaoResponseDto;
 import br.gov.servidor.modules.servidor.models.Lotacao;
+import br.gov.servidor.modules.servidor.models.ServidorEfetivo;
+import br.gov.servidor.modules.servidor.models.Unidade;
 import br.gov.servidor.modules.servidor.services.LotacaoService;
-
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 
 import jakarta.inject.Inject;
-import org.junit.jupiter.api.Test;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.util.List;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
-class LotacaoServiceTest {
+public class LotacaoServiceTest {
 
     @Inject
-    LotacaoService service;
+    LotacaoService lotacaoService;
 
+    @Inject
+    EntityManager em;
 
-    private LotacaoRequestDto lotacaoDto;
+    private Unidade unidade;
+    private ServidorEfetivo servidorEfetivo;
 
     @BeforeEach
-    void setup() {
-        lotacaoDto = new LotacaoRequestDto();
-        lotacaoDto.setDataLotacao(LocalDate.of(2020, 2, 6));
+    @Transactional
+    public void setup() {
+        unidade = new Unidade();
+        unidade.setNome("Unidade Teste");
+        unidade.setSigla("UT");
+        unidade.persistAndFlush();
+
+        servidorEfetivo = new ServidorEfetivo();
+        servidorEfetivo.setMatricula("12345");
+        servidorEfetivo.setNome("Servidor Teste");
+        servidorEfetivo.persistAndFlush();
     }
 
     @Test
     @TestTransaction
-    void salvar_devePersistirLotacaoERetornarDto() {
-        LotacaoResponseDto response = service.salvar(lotacaoDto);
+    public void testSalvarLotacao() {
+        LotacaoRequestDto lotacaoDto = new LotacaoRequestDto();
+        lotacaoDto.setPessoaId(servidorEfetivo.getId());
+        lotacaoDto.setUnidadeId(unidade.getId());
 
-        assertThat(response).isNotNull();
-        assertThat(response.getId()).isNotNull();
-        assertThat(response.getDataLotacao()).isEqualTo(lotacaoDto.getDataLotacao());
+        LotacaoResponseDto response = lotacaoService.salvar(lotacaoDto);
 
-        Lotacao lotacaoSalva = Lotacao.findById(response.getId());
-        assertThat(lotacaoSalva).isNotNull();
+        assertNotNull(response);
+        Lotacao lotacaoPersistida = em.find(Lotacao.class, response.getId());
+        assertNotNull(lotacaoPersistida);
+        assertEquals(lotacaoPersistida.getUnidade().getId(), unidade.getId());
     }
 
     @Test
     @TestTransaction
-    void editar_deveAtualizarLotacaoExistente() {
-        LotacaoResponseDto saved = service.salvar(lotacaoDto);
-        Long id = saved.getId();
+    public void testEditarLotacao() {
+        LotacaoRequestDto lotacaoDto = new LotacaoRequestDto();
+        lotacaoDto.setPessoaId(servidorEfetivo.getId());
+        lotacaoDto.setUnidadeId(unidade.getId());
+        LotacaoResponseDto response = lotacaoService.salvar(lotacaoDto);
 
         LotacaoRequestDto updateDto = new LotacaoRequestDto();
-        updateDto.setDataLotacao(LocalDate.now());
+        updateDto.setPessoaId(servidorEfetivo.getId());
+        updateDto.setUnidadeId(unidade.getId());
+        updateDto.setPortaria("Portaria123");
 
-        LotacaoResponseDto updated = service.editar(id, updateDto);
+        LotacaoResponseDto updatedResponse = lotacaoService.editar(response.getId(), updateDto);
 
-        assertThat(updated).isNotNull();
-        assertThat(updated.getId()).isEqualTo(id);
-        assertThat(updated.getDataLotacao()).isEqualTo(LocalDate.of(2020, 2, 6));
+        assertNotNull(updatedResponse);
+        assertEquals(updateDto.getPortaria(), updatedResponse.getPortaria());
 
-        Lotacao lotacaoAtualizada = Lotacao.findById(id);
-        assertThat(lotacaoAtualizada.getDataLotacao()).isEqualTo(LocalDate.of(2020, 2, 6));
+        Lotacao lotacaoPersistida = em.find(Lotacao.class, updatedResponse.getId());
+        assertNotNull(lotacaoPersistida);
     }
 
     @Test
     @TestTransaction
-    void findById_deveRetornarLotacaoQuandoExistir() {
-        LotacaoResponseDto saved = service.salvar(lotacaoDto);
+    public void testFindById() {
+        LotacaoRequestDto lotacaoDto = new LotacaoRequestDto();
+        lotacaoDto.setPessoaId(servidorEfetivo.getId());
+        lotacaoDto.setUnidadeId(unidade.getId());
+        LotacaoResponseDto savedResponse = lotacaoService.salvar(lotacaoDto);
 
-        LotacaoResponseDto found = service.findById(saved.getId());
+        LotacaoResponseDto foundResponse = lotacaoService.findById(savedResponse.getId());
 
-        assertThat(found).isNotNull();
-        assertThat(found.getId()).isEqualTo(saved.getId());
-        assertThat(found.getDataLotacao()).isEqualTo(saved.getDataLotacao());
+        assertNotNull(foundResponse);
+        assertEquals(savedResponse.getId(), foundResponse.getId());
     }
 
     @Test
     @TestTransaction
-    void deleteById_deveRemoverLotacao() {
-        LotacaoResponseDto saved = service.salvar(lotacaoDto);
-        Long id = saved.getId();
+    public void testDeleteById() {
+        LotacaoRequestDto lotacaoDto = new LotacaoRequestDto();
+        lotacaoDto.setPessoaId(servidorEfetivo.getId());
+        lotacaoDto.setUnidadeId(unidade.getId());
+        LotacaoResponseDto savedResponse = lotacaoService.salvar(lotacaoDto);
 
-        service.deleteById(id);
-
-        Lotacao lotacaoRemovida = Lotacao.findById(id);
-        assertThat(lotacaoRemovida).isNull();
+        lotacaoService.deleteById(savedResponse.getId());
+        Lotacao lotacaoDeletada = em.find(Lotacao.class, savedResponse.getId());
+        assertNull(lotacaoDeletada);
     }
 
     @Test
     @TestTransaction
-    void findByParams_deveRetornarListaPaginada() {
-        service.salvar(lotacaoDto);
+    public void testFindByParams() {
+        Lotacao lotacao = new Lotacao();
+        lotacao.setPortaria("Portaria123");
+        lotacao.setPessoa(servidorEfetivo);
+        lotacao.setUnidade(unidade);
+        em.persist(lotacao);
 
-        List<LotacaoResponseDto> result = service.findByParams(null, null).getContent();
+        LotacaoFiltroParams filtro = new LotacaoFiltroParams();
+        filtro.setPortaria("Portaria123");
 
-        assertThat(result).isNotEmpty();
-        assertThat(result.getFirst().getDataLotacao()).isEqualTo(lotacaoDto.getDataLotacao());
+        PageRequest pageRequest = new PageRequest(0, 10);
+        PagedResponse<LotacaoResponseDto> response = lotacaoService.findByParams(pageRequest, filtro);
+
+        assertNotNull(response);
+        assertFalse(response.getContent().isEmpty());
+        assertEquals(unidade.getId(), response.getContent().getFirst().getId());
     }
 }

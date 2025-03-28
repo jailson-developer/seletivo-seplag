@@ -19,7 +19,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
-public class ServicorEfetivoService {
+public class ServidorEfetivoService {
 
     @Inject
     ServidorEfetivoMapper mapper;

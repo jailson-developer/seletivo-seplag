@@ -5,7 +5,7 @@ import org.hibernate.dialect.PostgresPlusDialect;
 import org.hibernate.query.sqm.produce.function.FunctionParameterType;
 import org.hibernate.type.StandardBasicTypes;
 
-public class CustomPostgreSQLDialect extends PostgresPlusDialect {
+public class CustomH2SQLDialect extends org.hibernate.dialect.H2Dialect {
 
     @Override
     public void initializeFunctionRegistry(FunctionContributions functionContributions) {

@@ -1,3 +1,4 @@
+# utilizado network_mode: host devido a geração de links do minio, para acesso externo
 version: '3.0'
 services:
   minio:

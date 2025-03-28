@@ -43,10 +43,6 @@ public class ServidorTemporarioRequestDto implements Serializable {
     @Size(max = 200, message = "O nome do pai não pode ter mais de 200 caracteres")
     private String pai;
 
-    @Schema(description = "Matrícula do servidor", examples = "123456789")
-    @Size(max = 20, message = "A matrícula não pode ter mais de 20 caracteres")
-    private String matricula;
-
     private LocalDate dataAdmissao;
 
     private LocalDate dataDemissao;

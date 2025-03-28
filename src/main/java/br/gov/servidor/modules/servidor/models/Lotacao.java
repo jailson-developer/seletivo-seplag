@@ -48,7 +48,7 @@ public class Lotacao extends PanacheEntityBase {
         StringBuilder query = new StringBuilder("1=1");
         if (StringUtils.isNotBlank(filtro.getPortaria())) {
             parameters.and("portaria", QueryUtils.formatarQueryContem(filtro.getPortaria()));
-            query.append(" AND lower(portaria) LIKE :portaria");
+            query.append(" AND upper(portaria) LIKE :portaria");
         }
         if (filtro.getDataLotacao() != null) {
             parameters.and("dataLotacao", filtro.getDataLotacao());

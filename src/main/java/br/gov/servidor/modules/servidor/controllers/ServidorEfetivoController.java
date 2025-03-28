@@ -6,7 +6,7 @@ import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoRequestDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoResponseDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorEfetivoResumoResponseDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorEnderecoFuncionalDto;
-import br.gov.servidor.modules.servidor.services.ServicorEfetivoService;
+import br.gov.servidor.modules.servidor.services.ServidorEfetivoService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -25,7 +25,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 public class ServidorEfetivoController {
 
     @Inject
-    ServicorEfetivoService service;
+    ServidorEfetivoService service;
 
     @POST
     @Operation(summary = "Salva um novo servidor", description = "Realiza o cadastro de um novo servidor efetivo.")
