@@ -4,7 +4,6 @@ import br.gov.servidor.core.dtos.CidadeDto;
 import br.gov.servidor.core.dtos.EnderecoResponseDto;
 import br.gov.servidor.core.models.Cidade;
 import br.gov.servidor.core.models.Endereco;
-import br.gov.servidor.modules.servidor.models.Pessoa;
 import br.gov.servidor.modules.servidor.models.ServidorEfetivo;
 import lombok.Getter;
 import lombok.Setter;

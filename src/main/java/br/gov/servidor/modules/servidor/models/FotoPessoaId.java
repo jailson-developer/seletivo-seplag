@@ -3,7 +3,6 @@ package br.gov.servidor.modules.servidor.models;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.io.Serializable;
 import java.util.Objects;

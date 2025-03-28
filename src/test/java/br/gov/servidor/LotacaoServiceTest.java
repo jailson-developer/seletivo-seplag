@@ -11,7 +11,6 @@ import br.gov.servidor.modules.servidor.models.Unidade;
 import br.gov.servidor.modules.servidor.services.LotacaoService;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
-
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;

@@ -1,6 +1,5 @@
 package br.gov.servidor;
 
-import br.gov.servidor.core.dtos.EnderecoRequestDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorTemporarioRequestDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorTemporarioResponseDto;
 import br.gov.servidor.modules.servidor.enums.ESexo;

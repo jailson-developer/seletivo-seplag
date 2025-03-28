@@ -5,13 +5,16 @@ import br.gov.servidor.modules.servidor.dtos.ServidorTemporarioFiltroParams;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Parameters;
 import io.quarkus.panache.common.Sort;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
-
-import static br.gov.servidor.core.utils.QueryUtils.formatarQueryContem;
 
 @AllArgsConstructor
 @NoArgsConstructor

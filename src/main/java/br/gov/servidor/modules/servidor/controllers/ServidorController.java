@@ -1,16 +1,14 @@
 package br.gov.servidor.modules.servidor.controllers;
 
-import br.gov.servidor.core.pagination.PageRequest;
-import br.gov.servidor.core.pagination.PagedResponse;
-import br.gov.servidor.modules.servidor.dtos.ServidorEnderecoFuncionalDto;
 import br.gov.servidor.modules.servidor.services.ServidorService;
-
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.*;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.resteasy.reactive.RestForm;
 import org.jboss.resteasy.reactive.multipart.FileUpload;

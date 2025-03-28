@@ -1,18 +1,10 @@
 package br.gov.servidor.core.exceptions;
 
 import io.quarkus.security.UnauthorizedException;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
-import org.jboss.resteasy.reactive.server.ServerExceptionMapper;
-
 import jakarta.ws.rs.core.Response.Status;
-import jakarta.ws.rs.BadRequestException;
-import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.InternalServerErrorException;
-import jakarta.ws.rs.ForbiddenException;
-
-import jakarta.ws.rs.NotAcceptableException;
-
-import jakarta.ws.rs.ServiceUnavailableException;
+import org.jboss.resteasy.reactive.server.ServerExceptionMapper;
 
 
 public class ExceptionMappers {

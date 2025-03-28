@@ -3,7 +3,6 @@ package br.gov.servidor.modules.servidor.mappers;
 import br.gov.servidor.core.mappers.EnderecoMapper;
 import br.gov.servidor.modules.servidor.dtos.ServidorTemporarioRequestDto;
 import br.gov.servidor.modules.servidor.dtos.ServidorTemporarioResponseDto;
-
 import br.gov.servidor.modules.servidor.dtos.ServidorTemporarioResumoResponseDto;
 import br.gov.servidor.modules.servidor.models.ServidorTemporario;
 import br.gov.servidor.modules.servidor.models.Unidade;

@@ -1,7 +1,6 @@
 package br.gov.servidor.core.config;
 
 import org.hibernate.boot.model.FunctionContributions;
-import org.hibernate.dialect.PostgresPlusDialect;
 import org.hibernate.query.sqm.produce.function.FunctionParameterType;
 import org.hibernate.type.StandardBasicTypes;
 

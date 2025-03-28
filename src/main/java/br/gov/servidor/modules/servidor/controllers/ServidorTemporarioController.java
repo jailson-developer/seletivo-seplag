@@ -2,11 +2,13 @@ package br.gov.servidor.modules.servidor.controllers;
 
 import br.gov.servidor.core.pagination.PageRequest;
 import br.gov.servidor.core.pagination.PagedResponse;
-import br.gov.servidor.modules.servidor.dtos.*;
+import br.gov.servidor.modules.servidor.dtos.ServidorTemporarioFiltroParams;
+import br.gov.servidor.modules.servidor.dtos.ServidorTemporarioRequestDto;
+import br.gov.servidor.modules.servidor.dtos.ServidorTemporarioResponseDto;
+import br.gov.servidor.modules.servidor.dtos.ServidorTemporarioResumoResponseDto;
 import br.gov.servidor.modules.servidor.services.ServidorTemporarioService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
-import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;

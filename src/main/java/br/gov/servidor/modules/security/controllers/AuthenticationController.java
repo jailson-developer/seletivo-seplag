@@ -7,17 +7,16 @@ import br.gov.servidor.modules.security.dtos.AuthResponseDto;
 import br.gov.servidor.modules.security.services.AuthenticationService;
 import io.quarkus.security.Authenticated;
 import io.smallrye.jwt.auth.principal.DefaultJWTCallerPrincipal;
-import lombok.SneakyThrows;
-import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
-import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-
 import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.SecurityContext;
+import lombok.SneakyThrows;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 @Path("/autenticacao")
 @Tag(name = "Autenticação", description = "Endpoint(s) relacionado(s) a Autenticação")

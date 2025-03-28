@@ -6,7 +6,6 @@ import io.quarkus.vertx.http.runtime.filters.QuarkusRequestWrapper;
 import io.vertx.ext.web.Router;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
-
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.MDC;
 

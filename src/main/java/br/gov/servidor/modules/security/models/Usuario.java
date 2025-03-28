@@ -2,7 +2,6 @@ package br.gov.servidor.modules.security.models;
 
 import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-
 import jakarta.persistence.*;
 import jakarta.ws.rs.BadRequestException;
 import lombok.*;
