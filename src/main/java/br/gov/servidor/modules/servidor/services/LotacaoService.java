@@ -1,5 +1,6 @@
 package br.gov.servidor.modules.servidor.services;
 
+import br.gov.servidor.core.exceptions.RegraNegocioException;
 import br.gov.servidor.core.pagination.PageRequest;
 import br.gov.servidor.core.pagination.PagedResponse;
 import br.gov.servidor.modules.servidor.dtos.LotacaoFiltroParams;
@@ -21,6 +22,8 @@ public class LotacaoService {
 
     @Transactional
     public LotacaoResponseDto salvar(LotacaoRequestDto lotacaoDto) {
+        if (lotacaoDto.getDataRemocao() != null)
+            throw new RegraNegocioException("Não é permitido cadastrar lotação com data de remoção");
         var lotacao = mapper.toEntity(lotacaoDto);
         lotacao.persistAndFlush();
         return mapper.toDto(lotacao);

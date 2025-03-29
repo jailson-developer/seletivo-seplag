@@ -9,12 +9,14 @@ import br.gov.servidor.modules.servidor.dtos.ServidorTemporarioResumoResponseDto
 import br.gov.servidor.modules.servidor.services.ServidorTemporarioService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -36,7 +38,7 @@ public class ServidorTemporarioController {
         @APIResponse(responseCode = "400", description = "Erro na validação de dados")
     })
     @RolesAllowed("manter_servidor")
-    public Response salvar(ServidorTemporarioRequestDto temporarioRequestDto) {
+    public Response salvar(@Valid @RequestBody  ServidorTemporarioRequestDto temporarioRequestDto) {
         return Response.status(Response.Status.CREATED).entity(service.salvar(temporarioRequestDto)).build();
     }
 
@@ -50,7 +52,7 @@ public class ServidorTemporarioController {
         @APIResponse(responseCode = "404", description = "Servidor não encontrado"),
         @APIResponse(responseCode = "400", description = "Erro na validação de dados")
     })
-    public Response atualizar(@PathParam("id") Long id, ServidorTemporarioRequestDto servidorTemporarioRequestDto) {
+    public Response atualizar(@PathParam("id") Long id, @Valid @RequestBody  ServidorTemporarioRequestDto servidorTemporarioRequestDto) {
         return Response.ok().entity(service.atualizar(id, servidorTemporarioRequestDto)).build();
     }
 

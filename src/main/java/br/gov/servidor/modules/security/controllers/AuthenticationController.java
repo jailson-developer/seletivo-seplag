@@ -38,7 +38,7 @@ public class AuthenticationController {
 
     @Path("/refresh")
     @PUT
-    @Authenticated
+    @PermitAll
     @Operation(description = "Passar o Token de refresh no Header. Ex: Authorization: Bearer eyJ0eXAiOiJK...")
     public AuthResponseDto refresh(@Context SecurityContext securityContext) {
         var user = securityContext.getUserPrincipal();

@@ -25,7 +25,7 @@ import java.time.LocalDate;
 public class ServidorEfetivoRequestDto implements Serializable {
 
     @Schema(description = "Nome completo do servidor", examples = "João da Silva")
-    @NotBlank(message = "O nome não pode ser vazio ou nulo")
+    @NotBlank(message = "O nome do Servidor não pode ser vazio ou nulo")
     @Size(max = 200, message = "O nome não pode ter mais de 200 caracteres")
     private String nome;
 

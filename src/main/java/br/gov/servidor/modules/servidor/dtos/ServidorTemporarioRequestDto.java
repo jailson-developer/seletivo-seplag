@@ -4,6 +4,7 @@ import br.gov.servidor.core.dtos.EnderecoRequestDto;
 import br.gov.servidor.modules.servidor.enums.ESexo;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +33,7 @@ public class ServidorTemporarioRequestDto implements Serializable {
     private LocalDate dataNascimento;
 
     @Schema(description = "Sexo do servidor")
+    @NotNull(message = "O sexo não pode ser vazio ou nulo")
     private ESexo sexo;
 
     @Schema(description = "Nome da mãe do servidor", examples = "Maria da Silva")
@@ -42,6 +44,8 @@ public class ServidorTemporarioRequestDto implements Serializable {
     @Size(max = 200, message = "O nome do pai não pode ter mais de 200 caracteres")
     private String pai;
 
+    @Schema(description = "Data de admissão do servidor", examples = "2022-06-15")
+    @NotNull(message = "A data de admissão não pode ser vazia ou nula")
     private LocalDate dataAdmissao;
 
     private LocalDate dataDemissao;

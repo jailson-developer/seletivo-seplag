@@ -7,9 +7,11 @@ import br.gov.servidor.modules.servidor.models.UnidadeResponseDto;
 import br.gov.servidor.modules.servidor.services.UnidadeService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 @Path("/v1/unidades")
@@ -22,7 +24,7 @@ public class UnidadeController {
     @POST
     @RolesAllowed("manter_unidade")
     @Operation(summary = "Salvar uma nova unidade", description = "Cria uma nova unidade")
-    public Response salvar(UnidadeRequestDto unidadeRequestDto) {
+    public Response salvar(@Valid @RequestBody UnidadeRequestDto unidadeRequestDto) {
         return Response.created(null).entity(service.salvar(unidadeRequestDto)).build();
     }
 
@@ -30,7 +32,7 @@ public class UnidadeController {
     @Path("/{id}")
     @RolesAllowed("manter_unidade")
     @Operation(summary = "Atualizar dados de uma unidade", description = "Atualiza as informações de uma unidade já cadastrada.")
-    public Response atualizar(@PathParam("id") Long id, UnidadeRequestDto unidadeRequestDto) {
+    public Response atualizar(@PathParam("id") Long id, @Valid @RequestBody UnidadeRequestDto unidadeRequestDto) {
         return Response.ok().entity(service.editar(id, unidadeRequestDto)).build();
     }
 

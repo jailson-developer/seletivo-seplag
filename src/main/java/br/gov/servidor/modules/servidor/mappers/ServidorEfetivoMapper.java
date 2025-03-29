@@ -24,6 +24,7 @@ public interface ServidorEfetivoMapper {
     @Mapping(target = "id", ignore = true)
     ServidorEfetivo toEntity(ServidorEfetivoRequestDto servidorEfetivoDto);
 
+    @Mapping(target = "fotos", ignore = true)
     ServidorEfetivoResponseDto toResponseDto(ServidorEfetivo servidorEfetivo);
 
     @Mapping(target = "lotacao", source = "lotacoes")

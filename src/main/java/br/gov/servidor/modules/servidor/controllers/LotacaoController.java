@@ -8,9 +8,11 @@ import br.gov.servidor.modules.servidor.dtos.LotacaoResponseDto;
 import br.gov.servidor.modules.servidor.services.LotacaoService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 @Path("/v1/lotacoes")
@@ -23,7 +25,7 @@ public class LotacaoController {
     @POST
     @RolesAllowed("manter_lotacao")
     @Operation(summary = "Salvar uma nova lotação", description = "Cria uma nova lotação")
-    public Response salvar(LotacaoRequestDto lotacao) {
+    public Response salvar(@Valid @RequestBody LotacaoRequestDto lotacao) {
         return Response.created(null).entity(service.salvar(lotacao)).build();
     }
 
@@ -31,7 +33,7 @@ public class LotacaoController {
     @Path("/{id}")
     @RolesAllowed("manter_lotacao")
     @Operation(summary = "Atualizar dados de uma lotação", description = "Atualiza as informações de uma lotação já cadastrada.")
-    public Response atualizar(@PathParam("id") Long id, LotacaoRequestDto lotacao) {
+    public Response atualizar(@PathParam("id") Long id,@Valid @RequestBody  LotacaoRequestDto lotacao) {
         return Response.ok().entity(service.editar(id, lotacao)).build();
     }
 

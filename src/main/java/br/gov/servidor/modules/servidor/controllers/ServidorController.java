@@ -3,6 +3,7 @@ package br.gov.servidor.modules.servidor.controllers;
 import br.gov.servidor.modules.servidor.services.ServidorService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -27,7 +28,7 @@ public class ServidorController {
     @Path("/{servidorId}/fotos")
     @RolesAllowed("manter_servidor")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadFotos(@PathParam("servidorId") Long pessoaId, @RestForm("fotos") List<FileUpload> fotos) throws IOException {
+    public Response uploadFotos(@PathParam("servidorId") Long pessoaId, @NotNull(message = "Fotos não podem ser vazias") @RestForm("fotos") List<FileUpload> fotos) throws IOException {
         service.uploadFotos(pessoaId, fotos);
         return Response.created(null).build();
     }

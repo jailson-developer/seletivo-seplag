@@ -9,10 +9,12 @@ import br.gov.servidor.modules.servidor.dtos.ServidorEnderecoFuncionalDto;
 import br.gov.servidor.modules.servidor.services.ServidorEfetivoService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -30,11 +32,11 @@ public class ServidorEfetivoController {
     @POST
     @Operation(summary = "Salva um novo servidor", description = "Realiza o cadastro de um novo servidor efetivo.")
     @APIResponses(value = {
-        @APIResponse(responseCode = "201", description = "Servidor criado com sucesso"),
-        @APIResponse(responseCode = "400", description = "Erro na validação de dados")
+            @APIResponse(responseCode = "201", description = "Servidor criado com sucesso"),
+            @APIResponse(responseCode = "400", description = "Erro na validação de dados")
     })
     @RolesAllowed("manter_servidor")
-    public Response salvar(ServidorEfetivoRequestDto servidorEfetivoRequestDto) {
+    public Response salvar(@Valid @RequestBody ServidorEfetivoRequestDto servidorEfetivoRequestDto) {
         return Response.status(Response.Status.CREATED).entity(service.salvar(servidorEfetivoRequestDto)).build();
     }
 
@@ -43,11 +45,11 @@ public class ServidorEfetivoController {
     @RolesAllowed("manter_servidor")
     @Operation(summary = "Atualizar dados de um servidor", description = "Atualiza as informações de um servidor já cadastrado.")
     @APIResponses(value = {
-        @APIResponse(responseCode = "200", description = "Servidor atualizado com sucesso"),
-        @APIResponse(responseCode = "404", description = "Servidor não encontrado"),
-        @APIResponse(responseCode = "400", description = "Erro na validação de dados")
+            @APIResponse(responseCode = "200", description = "Servidor atualizado com sucesso"),
+            @APIResponse(responseCode = "404", description = "Servidor não encontrado"),
+            @APIResponse(responseCode = "400", description = "Erro na validação de dados")
     })
-    public Response atualizar(@PathParam("id") Long id, ServidorEfetivoRequestDto servidorEfetivoRequestDto) {
+    public Response atualizar(@PathParam("id") Long id, @Valid @RequestBody ServidorEfetivoRequestDto servidorEfetivoRequestDto) {
         return Response.ok().entity(service.atualizar(id, servidorEfetivoRequestDto)).build();
     }
 
@@ -55,8 +57,8 @@ public class ServidorEfetivoController {
     @Path("/{id}")
     @Operation(summary = "Excluir um servidor", description = "Exclui um servidor do sistema com base no ID.")
     @APIResponses(value = {
-        @APIResponse(responseCode = "204", description = "Servidor excluído com sucesso"),
-        @APIResponse(responseCode = "404", description = "Servidor não encontrado")
+            @APIResponse(responseCode = "204", description = "Servidor excluído com sucesso"),
+            @APIResponse(responseCode = "404", description = "Servidor não encontrado")
     })
     @RolesAllowed("manter_servidor")
     public Response excluir(@PathParam("id") Long id) {
@@ -68,8 +70,8 @@ public class ServidorEfetivoController {
     @Path("/{id}")
     @Operation(summary = "Consultar um servidor", description = "Consulta todos os dados completos de um servidor pelo ID.")
     @APIResponses(value = {
-        @APIResponse(responseCode = "200", description = "Servidor encontrado e retornado"),
-        @APIResponse(responseCode = "404", description = "Servidor não encontrado")
+            @APIResponse(responseCode = "200", description = "Servidor encontrado e retornado"),
+            @APIResponse(responseCode = "404", description = "Servidor não encontrado")
     })
     @RolesAllowed({"leitura_servidor", "manter_servidor"})
     public Response consultaCompleta(@PathParam("id") Long id) {

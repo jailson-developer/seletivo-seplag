@@ -99,13 +99,13 @@ docker-compose up
 - Com os containers em execução, abra o navegador e acesse a interface Swagger para explorar e testar a API:
   - [Swagger UI](http://localhost:8080/q/swagger-ui/)
 - **Credenciais Padrão**:
-  - **Usuário**: `Admin`
+  - **Usuário**: `admin`
   - **Senha**: `1`
 - **Dica**: Caso a interface não carregue, verifique se o serviço Quarkus subiu corretamente com `docker-compose logs`.
 
 ## ▶️ Testando a Aplicação
 
-1. No Swagger UI, autentique-se com as credenciais fornecidas (`Admin/1`).
+1. No Swagger UI, autentique-se com as credenciais fornecidas (`admin/1`).
 2. Explore os endpoints disponíveis para gerenciar servidores públicos.
 3. Utilize o MinIO em [http://localhost:9000](http://localhost:9000) (login: `minioadmin` / senha: `minioadmin`) para visualizar ou gerenciar arquivos, se necessário.
 
