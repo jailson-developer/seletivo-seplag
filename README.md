@@ -2,6 +2,12 @@
 
 Este repositório contém a configuração necessária para rodar a aplicação de controle de servidor público utilizando Quarkus, com os serviços auxiliares de MinIO e PostgreSQL.
 
+## Dados da Inscrição
+
+  - Nome: `Jailson Sales Ribeiro`
+  - Telefone: `(66) 99975-1536`
+  - Email: `jailsonsalestxu@hotmail.com`
+
 ## 📌 Pré-requisitos
 
 Antes de rodar os containers, verifique se você possui as seguintes ferramentas instaladas no seu sistema:
@@ -70,65 +76,55 @@ O arquivo `docker-compose.yml` define três serviços principais:
 
 ---
 
-## ▶️ Passos para Rodar a Aplicação
 
-### 1️⃣ Clonar o Repositório
+# ▶️ Passos para Rodar a Aplicação
+
+## 1️⃣ Clonar o Repositório
+
 ```sh
 git clone <URL_DO_REPOSITORIO>
 cd <DIRETORIO_DO_REPOSITORIO>
 ```
 
-### 2️⃣ Subir os Containers
+## 2️⃣ Subir os Containers
+
 ```sh
-docker-compose up -d
+docker-compose up
 ```
+- **Nota**: Para rodar em segundo plano, use `docker-compose up -d`.
 
-### 3️⃣ Verificar os Logs (Opcional)
-```sh
-docker-compose logs -f
-```
+## 3️⃣ Acessar o Swagger UI
 
-### 4️⃣ Acessar o Swagger da API
-Após subir os containers, acesse o Swagger pelo navegador:
-```
-http://localhost:8080/q/swagger-ui/
-```
+- Com os containers em execução, abra o navegador e acesse a interface Swagger para explorar e testar a API:
+  - [Swagger UI](http://localhost:8080/q/swagger-ui/)
+- **Credenciais Padrão**:
+  - **Usuário**: `Admin`
+  - **Senha**: `1`
+- **Dica**: Caso a interface não carregue, verifique se o serviço Quarkus subiu corretamente com `docker-compose logs`.
 
----
+## ▶️ Testando a Aplicação
 
-## ❌ Parar os Containers
-Se precisar parar a aplicação e remover os containers:
-```sh
-docker-compose down
-```
+1. No Swagger UI, autentique-se com as credenciais fornecidas (`Admin/1`).
+2. Explore os endpoints disponíveis para gerenciar servidores públicos.
+3. Utilize o MinIO em [http://localhost:9000](http://localhost:9000) (login: `minioadmin` / senha: `minioadmin`) para visualizar ou gerenciar arquivos, se necessário.
 
-Se quiser remover volumes e redes associadas:
-```sh
-docker-compose down -v
-```
+## ⏹️ Parar a Aplicação
 
----
+- Para encerrar os serviços, use:
+  ```sh
+  docker-compose down
+  ```
+- Para remover os volumes (dados persistentes), adicione a flag `--volumes`:
+  ```sh
+  docker-compose down --volumes
+  ```
 
-## 🛠 Manutenção e Debugging
+## 📋 Notas Adicionais
 
-### 📌 Listar Containers em Execução
-```sh
-docker ps
-```
-
-### 📌 Acessar um Container
-Para acessar o container do Quarkus:
-```sh
-docker exec -it <ID_DO_CONTAINER> /bin/sh
-```
-
-Para acessar o PostgreSQL:
-```sh
-docker exec -it <ID_DO_CONTAINER> psql -U postgres -d servidor_database
-```
-
-### 📌 Remover Imagens e Volumes (Se necessário)
-```sh
-docker system prune -a
-docker volume prune
-```
+- Certifique-se de que as portas `8080`, `9000` e `5432` estejam livres antes de subir os containers.
+- O script `init.sql` inicializa o banco de dados automaticamente ao subir o PostgreSQL.
+- Em caso de erros, consulte os logs com:
+  ```sh
+  docker-compose logs <nome_do_serviço>
+  ```
+  Exemplo: `docker-compose logs quarkus`, `docker-compose logs minio`, `docker-compose logs postgres`.
