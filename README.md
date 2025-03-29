@@ -7,6 +7,7 @@ Este repositório contém a configuração necessária para rodar a aplicação 
   - Nome: `Jailson Sales Ribeiro`
   - Telefone: `(66) 99975-1536`
   - Email: `jailsonsalestxu@hotmail.com`
+  - Vaga: `Desenvolvedor Backend Sênior`
 
 ## 📌 Pré-requisitos
 
