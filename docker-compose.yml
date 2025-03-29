@@ -25,24 +25,24 @@ services:
     network_mode: "host"
     restart: unless-stopped
 
-#  servidor-api:
-#    container_name: servidor-api
-#    image: jailsonsales/seletivo-seplag:latest
-#    depends_on:
-#      - postgres
-#      - minio
-#    network_mode: "host"
-#    environment:
-#      - JDBC_URL=jdbc:postgresql://localhost:5432/servidor_database
-#      - JDBC_USERNAME=postgres
-#      - JDBC_PASSWORD=root
-#      - MINIO_ACCESS_KEY=minioadmin
-#      - MINIO_SECRET_KEY=minioadmin
-#      - MINIO_HOST=localhost
-#      - MINIO_PORT=9000
-#      - MINIO_EXPIRACAO=5M
-#      - CORS_ORIGINS=http://localhost:8080
-#    restart: unless-stopped
+  servidor-api:
+    container_name: servidor-api
+    image: jailsonsales/seletivo-seplag:latest
+    depends_on:
+      - postgres
+      - minio
+    network_mode: "host"
+    environment:
+      - JDBC_URL=jdbc:postgresql://localhost:5432/servidor_database
+      - JDBC_USERNAME=postgres
+      - JDBC_PASSWORD=root
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_HOST=localhost
+      - MINIO_PORT=9000
+      - MINIO_EXPIRACAO=5M
+      - CORS_ORIGINS=http://localhost:8080
+    restart: unless-stopped
 
 volumes:
   minio_data:

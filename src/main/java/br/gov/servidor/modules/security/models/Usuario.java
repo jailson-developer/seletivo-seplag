@@ -37,6 +37,7 @@ public class Usuario extends PanacheEntityBase {
     @JoinTable(name = "role_user",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @Builder.Default
     private Set<Role> roles = new LinkedHashSet<>();
 
     public static Usuario findByLogin(String login, String password) {

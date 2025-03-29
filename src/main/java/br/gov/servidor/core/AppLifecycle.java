@@ -1,7 +1,10 @@
 package br.gov.servidor.core;
 
 import br.gov.servidor.core.s3.MinioService;
+import io.quarkus.arc.profile.IfBuildProfile;
+import io.quarkus.arc.profile.UnlessBuildProfile;
 import io.quarkus.runtime.StartupEvent;
+import io.quarkus.runtime.configuration.ConfigUtils;
 import io.quarkus.vertx.http.runtime.filters.QuarkusRequestWrapper;
 import io.vertx.ext.web.Router;
 import jakarta.enterprise.event.Observes;
@@ -27,6 +30,8 @@ public class AppLifecycle {
     }
 
     void onStart(@Observes StartupEvent event) {
-        minioService.prepararBucket(bucketFotoServidor);
+        if (!ConfigUtils.isProfileActive("test")) {
+            minioService.prepararBucket(bucketFotoServidor);
+        }
     }
 }
